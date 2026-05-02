@@ -1,5 +1,9 @@
 # bazzite-deck-niri &nbsp; [![bluebuild build badge](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml/badge.svg)](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml)
 
+An experimental attempt to get [Niri](https://github.com/niri-wm/niri) working and usable on Bazzite's Steam Deck image. I don't expect this to get very far.
+
+## Original description
+
 See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
 
 After setup, it is recommended you update this README to describe your custom image.
