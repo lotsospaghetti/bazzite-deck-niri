@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eo pipefail
+
+# Add screen rotation/scale fixes here as needed
+
+return 0
