@@ -8,16 +8,11 @@ base-image: ghcr.io/ublue-os/bazzite-deck-gnome
 image-version: latest
 
 modules:
-  # attempt to remove previous desktop and add niri + noctalia-shell
+  # add niri + noctalia-shell
   - type: script
     snippets:
       - "echo 'Enable Terra repo' && sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo"
   - type: dnf
-    remove:
-      auto-remove: false
-      packages:
-        - gnome-*
-        - xdg-desktop-portal-*
     install:
       allow-erasing: true
       packages:
@@ -29,10 +24,7 @@ modules:
         - wlsunset
         - matugen # TODO: ujust script for CLI (https://iniox.github.io/#matugen/usage)
         - cava
-        - sddm-conf
-        - sddm-wayland-generic
         - gpu-screen-recorder
-        - xdg-desktop-portal
       exclude:
         - alacritty
         - fuzzel
@@ -42,8 +34,6 @@ modules:
   - type: script
     snippets:
       - "echo 'Disable Terra repo' && sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo"
-      - "echo 'Remove bazzite-deck-gnome files' && rm -rf /etc/dconf/db/distro.d/10-*"
-      - "echo 'Remove bazzite-deck-gnome files' && rm -rf /usr/share/ublue-os/just/85-bazzite-image.just"
       - "echo 'Setting session command to niri-session' && sed -i 's@/usr/bin/gnome-session@/usr/bin/niri-session@g' /usr/bin/gnome-session-oneshot"
 
   # TODO: will need niri keybinds and fixes for things this install inevitably breaks
