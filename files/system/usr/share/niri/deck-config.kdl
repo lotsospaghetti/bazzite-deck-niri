@@ -12,7 +12,7 @@ output "eDP-1" {
 
 input {
   mod-key "Super"
-  focus-follows-mouse max-scroll=amount="25%"
+  focus-follows-mouse max-scroll-amount="25%"
 
   mouse {
     middle-emulation // L2 + R2 does middle click
@@ -32,16 +32,25 @@ binds {
   Mod+Shift+Up    { move-window-up; }
   Mod+Shift+Right { move-column-right; }
 
-  Mod+Control { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; } // L5 + L1
-  Mod+Shift+Control { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; } // L5 + L4 + L1
-  Mod+Alt { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; } // L5 + R1
-  Mod+Shift+Alt { show-hotkey-overlay; } // L5 + L4 + R1
-  Mod+Tab { close-window; } // L5 + Select
-  Mod+Shift+Tab { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; } // L5 + L4 + Select
+  // L5 + L1
+  Super+Control_L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+  // L5 + L4 + L1
+  Super+Shift+Control_L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+  // L5 + R1
+  Super+Alt_L { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; }
+  // L5 + L4 + R1
+  Super+Shift+Alt_L { show-hotkey-overlay; }
+  // L5 + Select
+  Super+Tab { close-window; }
+  // L5 + L4 + Select
+  Super+Shift+Tab { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
 
-  Mod+Return { spawn "xdg-terminal-exec"; } // L5 + A
-  Mod+Escape { toggle-overview; } // L5 + B/Start
-  Mod+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; } // L5 + Y
+  // L5 + A
+  Mod+Return { spawn "xdg-terminal-exec"; }
+  // L5 + B/Start
+  Mod+Escape { toggle-overview; }
+  // L5 + Y
+  Mod+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
 
   XF86AudioRaiseVolume { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "increase"; }
   XF86AudioLowerVolume { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "volume" "decrease"; }
