@@ -1,6 +1,5 @@
-# Point Niri at a read-only config containing Steam Deck controls
-# This file has an include for the standard config path in user's home dir
-NIRI_CONFIG=/usr/share/niri/deck-config.kdl
+# Point Niri at the Steam Deck config
+NIRI_CONFIG=/etc/niri/deck-config.kdl
 
 # VIM is more usable on deck due to control scheme
 EDITOR=/usr/bin/vim

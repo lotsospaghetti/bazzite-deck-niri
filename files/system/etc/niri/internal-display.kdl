@@ -1,0 +1,11 @@
+// this file is dynamically adjusted based on the device the first time Niri is run
+// please use 'ujust set-screen-rotation' and 'ujust set-screen-scale' to edit this file
+// and use custom configs to set up external displays
+output "eDP" {
+  scale 1.0
+  transform "normal"
+}
+output "eDP-1" {
+  scale 1.0
+  transform "normal"
+}

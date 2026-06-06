@@ -14,7 +14,7 @@ modules:
     snippets:
       - "echo 'Enable Terra repo' && sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo"
       - "echo 'Remove Gnome DE' && dnf5 -y remove *gnome* *mutter* --exclude=gnome-disk-utility,lutris,gnome-desktop3"
-      - "echo 'Set session command to niri-session' && sed -i 's@/usr/bin/gnome-session@/usr/bin/niri-session@g' /usr/bin/gnome-session-oneshot"
+      - "echo 'Set SteamOS session command to niri-session' && sed -i 's@/usr/bin/gnome-session@/usr/bin/niri-session@g' /usr/bin/gnome-session-oneshot"
   - type: dnf
     install:
       allow-erasing: true
@@ -34,15 +34,17 @@ modules:
         - fuzzel
         - swaylock
         - waybar
-        - xdg-desktop-portal-*
+        - xdg-desktop-portal-gnome
   - type: script
     snippets:
       - "echo 'Disable Terra repo' && sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/terra.repo"
 
-  # TODO: will need niri keybinds and fixes for things this install inevitably breaks
   - type: files
     files:
       - source: system
         destination: /
+
+  - type: justfiles
+    validate: true
 
   - type: signing

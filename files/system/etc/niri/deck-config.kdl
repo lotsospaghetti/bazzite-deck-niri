@@ -1,0 +1,69 @@
+// Steam Deck configuration
+// Makes primary use out of L5 and L4 grip buttons, labeled "Windows Key"
+// and "Shift Key" in Steam controller settings respectively.
+// If either of these buttons happen to be busted (modding the
+// Steam Deck ain't pretty) one of their keys can be mapped to left
+// stick click which is unbound by default.
+
+input {
+  mod-key "Super"
+  focus-follows-mouse max-scroll-amount="25%"
+
+  // not sure what device type Niri thinks either the Steam Input or
+  // "lizard mode" pointer inputs are...
+  mouse {
+    middle-emulation // L2 + R2 does middle click
+  }
+}
+
+include "internal-display.kdl"
+
+binds {
+  // L5 + dpad/lstick
+  Super+Left  { focus-column-left; }
+  Super+Down  { focus-window-down; }
+  Super+Up    { focus-window-up; }
+  Super+Right { focus-column-right; }
+
+  // L4 + dpad/lstick
+  Shift+Left  { move-column-left; }
+  Shift+Down  { move-window-down; }
+  Shift+Up    { move-window-up; }
+  Shift+Right { move-column-right; }
+
+  // L5 + A
+  Super+Return { spawn "xdg-terminal-exec"; }
+  // L5 + B/Start
+  Super+Escape { toggle-overview; }
+  // L5 + Y
+  Super+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "toggle"; }
+
+  // L4 + A
+  Shift+Return { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+  // L4 + B/Start
+  Shift+Escape { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+  // L4 + Y
+  Shift+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; }
+
+  // Select + B/Start
+  Tab+Escape { close-window; }
+  // Select + Y
+  Tab+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+
+  // L5 (+ L1) + R1 + A
+  Super+Alt+Return { show-hotkey-overlay; }
+  Super+Control+Alt+Return { show-hotkey-overlay; }
+
+  XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"; }
+  XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+  XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+  XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+  XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+  XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+}
+
+include "noctalia-shell.kdl"
+
+// User configuration
+
+include optional=true "~/.config/niri/config.kdl"
