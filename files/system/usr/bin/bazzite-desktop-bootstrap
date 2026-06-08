@@ -12,29 +12,44 @@ BASE_IMAGE_NAME=$(jq -r '."base-image-name"' <$IMAGE_INFO)
 
 mkdir -p "$HOME/.config/bazzite/fixups" 2>/dev/null
 
-if [ ! -f "/etc/niri/internal-display.kdl" ]; then
+if [ ! -f "$HOME/.config/niri/internal-display.kdl" ]; then
   echo "WARNING: /etc/niri/internal-display.kdl not found! Restoring it..."
-  cp /usr/etc/niri/internal-display.kdl /etc/niri/internal-display.kdl
+  rm "$HOME/.config/bazzite/fixups/niri_rotation_fixup" 2>/dev/null
+  rm "$HOME/.config/bazzite/fixups/niri_scaling_fixup" 2>/dev/null
+  mkdir -p "$HOME/.config/niri/" 2>/dev/null
+  cat <<-EOF >"$HOME/.config/niri/internal-display.kdl"
+// this file is dynamically adjusted based on the device the first time Niri is run
+// please use 'ujust set-screen-rotation' and 'ujust set-screen-scale' to edit this file
+// and use custom configs to set up external displays
+output "eDP" {
+  scale 1.0
+  transform "normal"
+}
+output "eDP-1" {
+  scale 1.0
+  transform "normal"
+}
+EOF
 fi
 
 # use hardware checks supplied by Bazzite to adjust rotation and scaling
 if [ ! -f "$HOME/.config/bazzite/fixups/niri_rotation_fixup" ]; then
   if /usr/libexec/hwsupport/needs-left-rotation; then
-    sed -i -E 's/^( |\t)+transform ".*"/  transform "90"/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+transform ".*"/  transform "90"/g' "$HOME/.config/niri/internal-display.kdl"
   elif /usr/libexec/hwsupport/needs-right-rotation; then
-    sed -i -E 's/^( |\t)+transform ".*"/  transform "270"/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+transform ".*"/  transform "270"/g' "$HOME/.config/niri/internal-display.kdl"
   else
-    sed -i -E 's/^( |\t)+transform ".*"/  transform "normal"/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+transform ".*"/  transform "normal"/g' "$HOME/.config/niri/internal-display.kdl"
   fi
   touch "$HOME/.config/bazzite/fixups/niri_rotation_fixup"
 fi
 if [ ! -f "$HOME/.config/bazzite/fixups/niri_scaling_fixup" ]; then
   if /usr/libexec/hwsupport/needs-100-scale; then
-    sed -i -E 's/^( |\t)+scale .*/  scale 1.0/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+scale .*/  scale 1.0/g' "$HOME/.config/niri/internal-display.kdl"
   elif /usr/libexec/hwsupport/needs-150-scale; then
-    sed -i -E 's/^( |\t)+scale .*/  scale 1.5/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+scale .*/  scale 1.5/g' "$HOME/.config/niri/internal-display.kdl"
   elif /usr/libexec/hwsupport/needs-200-scale; then
-    sed -i -E 's/^( |\t)+scale .*/  scale 2.0/g' /etc/niri/internal-display.kdl
+    sed -i -E 's/^( |\t)+scale .*/  scale 2.0/g' "$HOME/.config/niri/internal-display.kdl"
   fi
   touch "$HOME/.config/bazzite/fixups/niri_scaling_fixup"
 fi

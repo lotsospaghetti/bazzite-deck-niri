@@ -1,6 +1,23 @@
 alias fix-niri-config := reset-niri-config
 alias set-screen-transform := set-screen-rotation
 
+_regen-display-config:
+    #!/usr/bin/bash
+    mkdir -p "$HOME/.config/niri/" 2>/dev/null
+    cat <<-EOF >"$HOME/.config/niri/internal-display.kdl"
+        // this file is dynamically adjusted based on the device the first time Niri is run
+        // please use 'ujust set-screen-rotation' and 'ujust set-screen-scale' to edit this file
+        // and use custom configs to set up external displays
+        output "eDP" {
+          scale 1.0
+          transform "normal"
+        }
+        output "eDP-1" {
+          scale 1.0
+          transform "normal"
+        }
+    EOF
+
 reset-niri-config CONFIRM="":
     #!/usr/bin/bash
     set -euo pipefail
@@ -26,7 +43,9 @@ reset-niri-config CONFIRM="":
         "Reset configuration")
             echo "Applying default configuration..."
             cp /var/usr/etc/niri/* /etc/niri/.
-            rm -f "$HOME/.config/bazzite/fixups/niri_*"
+            rm "$HOME/.config/bazzite/fixups/niri_rotation_fixup" 2>/dev/null
+            rm "$HOME/.config/bazzite/fixups/niri_scaling_fixup" 2>/dev/null
+            rm "$HOME/.config/niri/internal-display.kdl" 2>/dev/null
             ;;
         *)
             echo "No changes made."
@@ -41,12 +60,12 @@ set-screen-rotation VALUE="":
 
     VALUE="{{ VALUE }}"
 
-    if [ ! -f "/etc/niri/internal-display.kdl" ]; then
-        echo "WARNING: /etc/niri/internal-display.kdl not found! Restoring it..."
-        cp /usr/etc/niri/internal-display.kdl /etc/niri/internal-display.kdl
+    if [ ! -f "$HOME/.config/niri/internal-display.kdl" ]; then
+        echo "WARNING: $HOME/.config/niri/internal-display.kdl not found! Restoring it..."
+        ujust _regen-display-config
     fi
 
-    rotate_status="$(grep -m 1 'transform' files/system/etc/niri/internal-display.kdl | cut -d'"' -f2)"
+    rotate_status="$(grep -m 1 'transform' "$HOME/.config/niri/internal-display.kdl" | cut -d'"' -f2)"
 
     if [[ $ACTION == "help" ]]; then
         echo "Usage: ujust set-screen-rotation [0|normal|90|left|270|right|180|flipped|flipped-90|flipped-270|flipped-180]"
@@ -100,9 +119,9 @@ set-screen-rotation VALUE="":
         esac
     fi
 
-    sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$CHOICE\"/g" /etc/niri/internal-display.kdl
+    sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$CHOICE\"/g" "$HOME/.config/niri/internal-display.kdl"
     ugum confirm "Keep changes?" || \
-      sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$rotate_status\"/g" /etc/niri/internal-display.kdl
+      sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$rotate_status\"/g" "$HOME/.config/niri/internal-display.kdl"
 
 set-screen-scaling VALUE="":
     #!/usr/bin/bash
@@ -111,12 +130,12 @@ set-screen-scaling VALUE="":
 
     VALUE="{{ VALUE }}"
 
-    if [ ! -f "/etc/niri/internal-display.kdl" ]; then
-        echo "WARNING: /etc/niri/internal-display.kdl not found! Restoring it..."
-        cp /usr/etc/niri/internal-display.kdl /etc/niri/internal-display.kdl
+    if [ ! -f "$HOME/.config/niri/internal-display.kdl" ]; then
+        echo "WARNING: $HOME/.config/niri/internal-display.kdl not found! Restoring it..."
+        ujust _regen-display-config
     fi
 
-    scale_status="$(grep -m 1 'scale' files/system/etc/niri/internal-display.kdl | cut -d'"' -f2)"
+    scale_status="$(grep -m 1 'scale' "$HOME/.config/niri/internal-display.kdl" | cut -d'"' -f2)"
 
     if [[ $ACTION == "help" ]]; then
         echo "Usage: ujust set-screen-scaling <SCALE>"
@@ -148,6 +167,6 @@ set-screen-scaling VALUE="":
         CHOICE="$VALUE"
     fi
 
-    sed -i -E "s/^( |\t)+scale .*/  scale $CHOICE/g" /etc/niri/internal-display.kdl
+    sed -i -E "s/^( |\t)+scale .*/  scale $CHOICE/g" "$HOME/.config/niri/internal-display.kdl"
     ugum confirm "Keep changes?" || \
-      sed -i -E "s/^( |\t)+scale .*/  scale $scale_status/g" /etc/niri/internal-display.kdl
+      sed -i -E "s/^( |\t)+scale .*/  scale $scale_status/g" "$HOME/.config/niri/internal-display.kdl"

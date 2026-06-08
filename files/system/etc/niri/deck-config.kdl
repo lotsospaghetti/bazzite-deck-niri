@@ -16,7 +16,7 @@ input {
   }
 }
 
-include "internal-display.kdl"
+include optional=true "~/.config/niri/internal-display.kdl"
 
 binds {
   // L5 + dpad/lstick
@@ -45,10 +45,10 @@ binds {
   // L4 + Y
   Shift+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; }
 
-  // Select + B/Start
-  Tab+Escape { close-window; }
-  // Select + Y
-  Tab+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+  // L1 + B/Start
+  Control+Escape { close-window; }
+  // L1 + Y
+  Control+Space { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
 
   // L5 (+ L1) + R1 + A
   Super+Alt+Return { show-hotkey-overlay; }
