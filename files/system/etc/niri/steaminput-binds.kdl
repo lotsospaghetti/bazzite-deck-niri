@@ -35,7 +35,6 @@ window-rule {
   open-focused false
   open-floating true
   default-floating-position x=0 y=0 relative-to="bottom"
-  default-window-height { proportion 0.4; }
   block-out-from "screencast"
   opacity 0.8
 }
