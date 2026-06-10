@@ -10,12 +10,12 @@ SYS_ID="$(/usr/libexec/hwsupport/sysid)"
 IMAGE_INFO="/usr/share/ublue-os/image-info.json"
 BASE_IMAGE_NAME=$(jq -r '."base-image-name"' <$IMAGE_INFO)
 
-mkdir -p "$HOME/.config/bazzite/fixups" 2>/dev/null
+mkdir -p "$HOME/.config/bazzite/fixups" 2>/dev/null || true
 
 if [ ! -f "$HOME/.config/bazzite/niri-internal-display.kdl" ]; then
   echo "WARNING: $HOME/.config/bazzite/niri-internal-display.kdl not found! Restoring it..."
-  rm "$HOME/.config/bazzite/fixups/niri_rotation_fixup" 2>/dev/null
-  rm "$HOME/.config/bazzite/fixups/niri_scaling_fixup" 2>/dev/null
+  rm "$HOME/.config/bazzite/fixups/niri_rotation_fixup" 2>/dev/null || true
+  rm "$HOME/.config/bazzite/fixups/niri_scaling_fixup" 2>/dev/null || true
   cat <<EOF >"$HOME/.config/bazzite/niri-internal-display.kdl"
 // this file is dynamically adjusted based on the device the first time Niri is run
 // please use 'ujust set-screen-rotation' and 'ujust set-screen-scale' to edit this file

@@ -25,9 +25,10 @@ reset-niri-config CONFIRM="":
     case "$CHOICE" in
         "Reset configuration")
             echo "Applying default configuration..."
-            cp /var/usr/etc/niri/* /etc/niri/.
-            niri msg action do-screen-transition
-            rm "$HOME/.config/bazzite/niri-internal-display.kdl"
+            sudo rm -f /etc/niri/*
+            sudo cp /usr/etc/niri/* /etc/niri/.
+            niri msg action do-screen-transition 2>/dev/null || true
+            rm "$HOME/.config/bazzite/niri-internal-display.kdl" 2>/dev/null || true
             /usr/bin/bazzite-desktop-bootstrap
             ;;
         *)
@@ -100,10 +101,10 @@ niri-set-screen-rotation VALUE="":
         esac
     fi
 
-    niri msg action do-screen-transition
+    niri msg action do-screen-transition 2>/dev/null || true
     sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$CHOICE\"/g" "$HOME/.config/bazzite/niri-internal-display.kdl"
     if ! ugum confirm "Keep changes?"; then
-      niri msg action do-screen-transition
+      niri msg action do-screen-transition 2>/dev/null || true
       sed -i -E "s/^( |\t)+transform \".*\"/  transform \"$rotate_status\"/g" "$HOME/.config/bazzite/niri-internal-display.kdl"
     fi
 
@@ -149,9 +150,9 @@ niri-set-screen-scaling VALUE="":
         CHOICE="$VALUE"
     fi
 
-    niri msg action do-screen-transition
+    niri msg action do-screen-transition 2>/dev/null || true
     sed -i -E "s/^( |\t)+scale .*/  scale $CHOICE/g" "$HOME/.config/bazzite/niri-internal-display.kdl"
     if ! ugum confirm "Keep changes?"; then
-      niri msg action do-screen-transition
+      niri msg action do-screen-transition 2>/dev/null || true
       sed -i -E "s/^( |\t)+scale .*/  scale $scale_status/g" "$HOME/.config/bazzite/niri-internal-display.kdl"
     fi
