@@ -1,0 +1,4 @@
+include "steaminput-binds.kdl"
+include optional=true "~/.config/bazzite/niri-internal-display.kdl"
+include optional=true "noctalia-shell.kdl"
+include optional=true "~/.config/niri/config.kdl"

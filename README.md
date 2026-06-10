@@ -1,19 +1,14 @@
 # bazzite-deck-niri &nbsp; [![bluebuild build badge](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml/badge.svg)](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml)
 
-An experimental attempt to get [Niri](https://github.com/niri-wm/niri) working and usable on Bazzite's Steam Deck image. I don't expect this to get very far.
+A WIP `bazzite-deck-gnome`-based image that aims to be a mostly unopinionated\* example of getting [Niri](https://github.com/niri-wm/niri) to work on PC handhelds using [Steam Input keybinds](files/system/etc/niri/steaminput-binds.kdl) and an [auto-generated scaling/transform config](files/system/usr/bin/bazzite-desktop-bootstrap) for the internal display.
 
-## Original description
+\*The image comes with [Noctalia Shell](https://noctalia.dev/) as a convenient default and some of the keybinds are assigned to basic Noctalia Shell actions. If using this image as a base you can remove the `noctalia-shell` package and change the keybinds to use something else.
 
-See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
-
-After setup, it is recommended you update this README to describe your custom image.
+This repository was built using [BlueBuild](https://blue-build.org).
 
 ## Installation
 
-> [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
-
-To rebase an existing atomic Fedora installation to the latest build:
+First, [install a Bazzite -deck image](https://docs.bazzite.gg/General/Installation_Guide/install-guide/) (`bazzite-deck-gnome` is recommended but `bazzite-deck` may or may not also work). Then follow these steps to rebase to `bazzite-deck-niri`:
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
@@ -32,11 +27,7 @@ To rebase an existing atomic Fedora installation to the latest build:
   systemctl reboot
   ```
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
-
-## ISO
-
-If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/how-to/generate-iso/#_top). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
+As far as I've tested, [installing directly from an ISO doesn't seem to work](https://github.com/lotsospaghetti/bazzite-deck-niri/issues/1). You could [try it](https://blue-build.org/how-to/generate-iso/) but I highly recommend rebasing instead.
 
 ## Verification
 

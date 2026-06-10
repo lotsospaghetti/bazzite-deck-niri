@@ -1,0 +1,99 @@
+// Steam Input control configuration
+// TODO: configure hotkey display to explain the buttons used
+//    TODO: stretch goal, replace hotkey display with a graphic?
+// TODO: confirm compatibility with PC handhelds other than Steam Deck
+
+input {
+  // enable mouse scrolling
+  focus-follows-mouse
+
+  // not sure what device type Niri thinks either the Steam Input or
+  // "lizard mode" pointer inputs are...
+  mouse {
+    middle-emulation // L2 + R2 does middle click
+  }
+}
+
+gestures {
+  // enable drag and drop scrolling
+  dnd-edge-view-scroll {
+    trigger-width 30
+    delay-ms 100
+    max-speed 1500
+  }
+
+  dnd-edge-view-scroll {
+    trigger-width 30
+    delay-ms 100
+    max-speed 1500
+  }
+}
+
+// TODO: Steam keyboard window rule?
+
+binds {
+  // Use L1 and R1 as primary mod keys for broadest possible compatibility
+
+  // L1 + dpad/lstick: Move focus
+  Ctrl+Left hotkey-overlay-title="<tt>L1 + Left</tt> Focus Column to the Left"  { focus-column-left; }
+  Ctrl+Right hotkey-overlay-title="<tt>L1 + Right</tt> Focus Column to the Right" { focus-column-right; }
+  Ctrl+Down hotkey-overlay-title="<tt>L1 + Down</tt> Focus Window or Workspace Down" { focus-window-or-workspace-down; }
+  Ctrl+Up hotkey-overlay-title="<tt>L1 + Up</tt> Focus Window or Workspace Up"{ focus-window-or-workspace-up; }
+
+  // R1 + dpad/lstick: Move column or window
+  Alt+Left hotkey-overlay-title="<tt>R1 + Left</tt> Move Column Left" { move-column-left; }
+  Alt+Right hotkey-overlay-title="<tt>R1 + Right</tt> Move Column Right" { move-column-right; }
+  Alt+Down hotkey-overlay-title="<tt>R1 + Down</tt> Move Window Down or to Workspace Down" { move-window-down-or-to-workspace-down; }
+  Alt+Up hotkey-overlay-title="<tt>R1 + Up</tt> Move Window Up or to Workspace Up" { move-window-up-or-to-workspace-up; }
+
+  // L1 + R1 + dpad/lstick: Granular window movement and resizing
+  Ctrl+Alt+Left hotkey-overlay-title="<tt>L1 + R1 + Left</tt> Consume or Expel Window Left" { consume-or-expel-window-left; }
+  Ctrl+Alt+Right hotkey-overlay-title="<tt>L1 + R1 + Right</tt> Consume or Expel Window Right" { consume-or-expel-window-right; }
+  Ctrl+Alt+Down hotkey-overlay-title="<tt>L1 + R1 + Down</tt> Switch Preset Column Widths" { switch-preset-column-width; }
+  Ctrl+Alt+Up hotkey-overlay-title="<tt>L1 + R1 + Up</tt> Maximize Column" { maximize-column; }
+
+  // X opens the onscreen keyboard by default so it can't be used for keybinds...
+
+  // L1 + A: Launch terminal
+  Ctrl+Return repeat=false hotkey-overlay-title="<tt>L1 + A</tt> Spawn a Terminal" { spawn "xdg-terminal-exec"; }
+  // L1 + B/Start: Overview
+  Ctrl+Escape repeat=false hotkey-overlay-title="<tt>L1 + B/Start</tt> Open the Overview" { toggle-overview; }
+  // L1 + Y: Fullscreen
+  Ctrl+Space repeat=false hotkey-overlay-title="<tt>L1 + Y</tt> Fullscreen the Focused Window" { fullscreen-window; }
+  // L1 + Select: Float Window
+  Ctrl+Tab repeat=false hotkey-overlay-title="<tt>L1 + Select</tt> Move Window Between Floating and Tiling" { toggle-window-floating; }
+
+  // R1 + A: Launcher
+  Alt+Return repeat=false hotkey-overlay-title="<tt>R1 + A</tt> Open the Launcher" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+  // R1 + B/Start: Control Center
+  Alt+Escape repeat=false hotkey-overlay-title="<tt>R1 + B/Start</tt> Open the Control Center" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
+  // R1 + Y: System Monitor
+  Alt+Space repeat=false hotkey-overlay-title="<tt>R1 + Y</tt> Open the System Monitor" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; }
+  // R1 + Select: Toggle float focus
+  Ctrl+Alt+Tab repeat=false hotkey-overlay-title="<tt>R1 + Select</tt> Switch Focus Between Floating and Tiling" { switch-focus-between-floating-and-tiling; }
+
+  // L1 + R1 + B/Start: Close window
+  Ctrl+Alt+Escape repeat=false hotkey-overlay-title="<tt>L1 + R1 + B/Start</tt> Close Focused Window" { close-window; }
+  // L1 + R1 + Y: Session menu/Exit niri
+  Ctrl+Alt+Space repeat=false hotkey-overlay-title="<tt>L1 + R1 + Y</tt> Open Session Menu" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "sessionMenu" "toggle"; }
+  //L1 + R1 + Select: Show hotkey overlay
+  Ctrl+Alt+Tab repeat=false hotkey-overlay-title="<tt>L1 + R1 + Select</tt> Show Important Hotkeys" { show-hotkey-overlay; }
+
+  // Basic hardware volume & screen controls
+  XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+" "-l" "1.0"; }
+  XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+  XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+  XF86AudioMicMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+  XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+  XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+}
+
+hotkey-overlay {
+    hide-not-bound
+}
+
+recent-windows {
+    // Remove Alt+Tab binds so they don't cause conflicts
+    binds {
+    }
+}
