@@ -59,5 +59,3 @@ if [ ! -f "$HOME/.config/bazzite/fixups/niri_scaling_fixup" ]; then
   fi
   touch "$HOME/.config/bazzite/fixups/niri_scaling_fixup"
 fi
-
-return 0
