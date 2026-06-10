@@ -29,7 +29,16 @@ gestures {
   }
 }
 
-// TODO: Steam keyboard window rule?
+// Open onscreen keyboard at bottom and prevent it from stealing focus
+window-rule {
+  match title="^Steam Input On-screen Keyboard$"
+  open-focused false
+  open-floating true
+  default-floating-position x=0 y=0 relative-to="bottom"
+  default-window-height { proportion 0.4; }
+  block-out-from "screencast"
+  opacity 0.8
+}
 
 binds {
   // Use L1 and R1 as primary mod keys for broadest possible compatibility
