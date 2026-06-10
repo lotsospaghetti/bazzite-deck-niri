@@ -70,7 +70,7 @@ binds {
   // R1 + Y: System Monitor
   Alt+Space repeat=false hotkey-overlay-title="<tt>R1 + Y</tt> Open the System Monitor" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "systemMonitor" "toggle"; }
   // R1 + Select: Toggle float focus
-  Ctrl+Alt+Tab repeat=false hotkey-overlay-title="<tt>R1 + Select</tt> Switch Focus Between Floating and Tiling" { switch-focus-between-floating-and-tiling; }
+  Alt+Tab repeat=false hotkey-overlay-title="<tt>R1 + Select</tt> Switch Focus Between Floating and Tiling" { switch-focus-between-floating-and-tiling; }
 
   // L1 + R1 + B/Start: Close window
   Ctrl+Alt+Escape repeat=false hotkey-overlay-title="<tt>L1 + R1 + B/Start</tt> Close Focused Window" { close-window; }

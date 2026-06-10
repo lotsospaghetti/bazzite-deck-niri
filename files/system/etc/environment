@@ -1,0 +1,8 @@
+# Force config in /etc to be used (has optional include for user config)
+NIRI_CONFIG=/etc/niri/config.kdl
+
+# VIM is more usable on deck due to control scheme
+EDITOR=/usr/bin/vim
+
+# Disable Brew auto-update
+HOMEBREW_NO_AUTO_UPDATE=1
