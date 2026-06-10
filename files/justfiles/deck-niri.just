@@ -49,7 +49,7 @@ niri-set-screen-rotation VALUE="":
 
     rotate_status="$(grep -m 1 'transform' "$HOME/.config/bazzite/niri-internal-display.kdl" | cut -d'"' -f2)"
 
-    if [[ $ACTION == "help" ]]; then
+    if [[ $VALUE == "help" ]]; then
         echo "Usage: ujust set-screen-rotation [0|normal|90|left|270|right|180|flipped|flipped-90|flipped-270|flipped-180]"
         echo "If no action is provided you'll be prompted with a picker."
         exit 0
@@ -120,7 +120,7 @@ niri-set-screen-scaling VALUE="":
 
     scale_status="$(grep -m 1 'scale' "$HOME/.config/bazzite/niri-internal-display.kdl" | cut -d'"' -f2)"
 
-    if [[ $ACTION == "help" ]]; then
+    if [[ $VALUE == "help" ]]; then
         echo "Usage: ujust set-screen-scaling <SCALE>"
         echo "If no action is provided you'll be prompted with a picker."
         exit 0
