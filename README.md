@@ -1,4 +1,4 @@
-# bazzite-deck-niri &nbsp; [![bluebuild build badge](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml/badge.svg)](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml)
+# bazzite-deck-niri &nbsp; [![bluebuild build badge](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml/badge.svg)](https://github.com/lotsospaghetti/bazzite-deck-niri/actions/workflows/build.yml) [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/bazzite-deck-niri)](https://artifacthub.io/packages/search?repo=bazzite-deck-niri)
 
 A WIP `bazzite-deck-gnome`-based image that aims to be a mostly unopinionated\* example of getting [Niri](https://github.com/niri-wm/niri) to work on PC handhelds using [Steam Input keybinds](files/system/etc/niri/steaminput-binds.kdl) and an [auto-generated scaling/transform config](files/system/usr/bin/bazzite-desktop-bootstrap) for the internal display.
 
