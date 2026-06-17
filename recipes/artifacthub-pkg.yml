@@ -1,0 +1,10 @@
+version: 0.9
+name: bazzite-deck-niri
+displayName: bazzite-deck-niri
+createdAt: 2026-06-16
+containersImages:
+  - name: bootc
+    image: ghcr.io/lotsospaghetti/bazzite-deck-niri:latest
+    whitelisted: false
+    platforms:
+      - linux/amd64
