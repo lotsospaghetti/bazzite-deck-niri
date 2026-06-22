@@ -1,7 +1,8 @@
 version: 0.9
 name: bazzite-deck-niri
 displayName: bazzite-deck-niri
-createdAt: 2026-06-16
+createdAt: 2026-06-16T00:00:00Z
+description: Basic Steam Input configuration and Bazzite-based image for Niri on PC handhelds
 containersImages:
   - name: bootc
     image: ghcr.io/lotsospaghetti/bazzite-deck-niri:latest

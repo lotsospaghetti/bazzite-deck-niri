@@ -21,7 +21,7 @@ modules:
       packages:
         - sddm
         - niri
-        - gnome-keyring
+        - oo7-cli
         - xwayland-satellite
         - cliphist
         - wlsunset
