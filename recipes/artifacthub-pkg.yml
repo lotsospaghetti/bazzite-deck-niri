@@ -6,6 +6,6 @@ description: Basic Steam Input configuration and Bazzite-based image for Niri on
 containersImages:
   - name: bootc
     image: ghcr.io/lotsospaghetti/bazzite-deck-niri:latest
-    whitelisted: false
+    whitelisted: true
     platforms:
       - linux/amd64

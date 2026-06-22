@@ -21,7 +21,6 @@ modules:
       packages:
         - sddm
         - niri
-        - oo7-cli
         - xwayland-satellite
         - cliphist
         - wlsunset
